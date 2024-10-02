@@ -1,6 +1,7 @@
 # general imports
 import os
 import json
+import pickle
 
 # # yaml imports
 import yaml
@@ -24,7 +25,7 @@ Only thing I changed besides name was write this preamble to replace the comment
 if __name__ == "__main__":
 
     # Decide if running a new simulation or loading a previously run simulation
-    run_new = True
+    run_new = False
     filename = "example_plant"
 
     # Decide if running OpenMDAO problem or straight GreenHEART simulation (True for OpenMDAO)
@@ -35,37 +36,40 @@ if __name__ == "__main__":
 
     # Load inputs as needed
     filepath = str(os.path.abspath(os.path.dirname(__file__)))
+    input_filepath = filepath + "/input/"
+    output_filepath = filepath + "/output/"
     turbine_model = "lbw_6MW"
-    filename_turbine_config = filepath+"/input/turbines/"+turbine_model+".yaml"
-    filename_floris_config = filepath+"/input/floris/floris_input_lbw_6MW.yaml"
-    filename_hopp_config = filepath+"/input/plant/hopp_config_mn.yaml"
-    filename_greenheart_config = filepath+"/input/plant/greenheart_config_onshore_mn.yaml"
+    filename_turbine_config = input_filepath+"turbines/"+turbine_model+".yaml"
+    filename_floris_config = input_filepath+"floris/floris_input_lbw_6MW.yaml"
+    filename_hopp_config =  input_filepath+"plant/hopp_config_mn.yaml"
+    filename_greenheart_config =  input_filepath+"plant/greenheart_config_onshore_mn.yaml"
 
     # Set up GreenHEART configuration
-    config = GreenHeartSimulationConfig(
-        filename_hopp_config,
-        filename_greenheart_config,
-        filename_turbine_config,
-        filename_floris_config,
-        verbose=True,
-        show_plots=False,
-        save_plots=True,
-        use_profast=True,
-        post_processing=True,
-        incentive_option=1,
-        plant_design_scenario=9,
-        output_level=7,
-    )
+    if run_new:
+        config = GreenHeartSimulationConfig(
+            filename_hopp_config,
+            filename_greenheart_config,
+            filename_turbine_config,
+            filename_floris_config,
+            verbose=True,
+            show_plots=False,
+            save_plots=False,
+            use_profast=True,
+            post_processing=True,
+            incentive_option=1,
+            plant_design_scenario=9,
+            output_level=7,
+        )
 
     # Run/load GreenHEART simulation
     if run_om:
-
-        # using OpenMDAO
+        
+        # Run using OpenMDAO
         if True: #run_new: #TODO - Make load_data actually work?
             prob, config = run_greenheart_with_om(config, run_only=run_analysis)
 
             # Save GreenHEART data (OpenMDAO inputs/outputs)
-            save_data(filename, prob)
+            save_data(output_filepath+filename+"_om", prob)
 
         else:
 
@@ -78,11 +82,29 @@ if __name__ == "__main__":
         lcos = prob.get_val("lcos", units="USD/t")
 
     else:
-
-        # not using OpenMDAO
+        
+        # Run not using OpenMDAO
         if run_new:
             lcoe, lcoh, steel_finance, ammonia_finance = run_greenheart(config)
-            print(steel_finance)
+            lcos = steel_finance.sol['price']
+            
+            # Save GreenHEART data (lcoe, lcoh, and SteelCostModelOutputs)
+            output = open(output_filepath+filename+"_lcoe.txt", 'w')
+            output.write(str(lcoe))
+            output = open(output_filepath+filename+"_lcoh.txt", 'w')
+            output.write(str(lcoh))
+            output = open(output_filepath+filename+"_sf.pkl", 'wb')
+            pickle.dump(steel_finance, output)
+
+        # Load from saved files
+        else:
+            input = open(output_filepath+filename+"_lcoe.txt")
+            lcoe = float(input.read())
+            input = open(output_filepath+filename+"_lcoh.txt")
+            lcoh = float(input.read())
+            input = open(output_filepath+filename+"_sf.pkl", 'rb')
+            steel_finance = pickle.load(input)
+            lcos = steel_finance.sol['price']
 
 
     print("LCOE: ", lcoe, "[$/MWh]")
