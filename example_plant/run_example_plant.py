@@ -25,7 +25,7 @@ Only thing I changed besides name was write this preamble to replace the comment
 if __name__ == "__main__":
 
     # Decide if running a new simulation or loading a previously run simulation
-    run_new = False
+    run_new = True
     filename = "example_plant"
 
     # Decide if running OpenMDAO problem or straight GreenHEART simulation (True for OpenMDAO)
