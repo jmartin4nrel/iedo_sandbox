@@ -1,0 +1,345 @@
+output_directory: NED-toolbox/toolbox/verify-setup\outputs\00\offgrid-baseline\equal-sized\ATB_2030
+renewable_resource_origin: API
+atb_year: 2030
+atb_cost_cases_hopp:
+  Advanced:
+    battery_om_per_kw: 24.5
+    pv_om_per_kw: 12.6866
+    solar_installed_cost_mw: 711194.0299
+    storage_installed_cost_mw: 184000.0
+    storage_installed_cost_mwh: 199000.0
+    wind_installed_cost_mw: 1166000.0
+    wind_om_per_kw: 26
+  Conservative:
+    battery_om_per_kw: 40.35
+    pv_om_per_kw: 14.9254
+    solar_installed_cost_mw: 880597.0149
+    storage_installed_cost_mw: 338000.0
+    storage_installed_cost_mwh: 319000.0
+    wind_installed_cost_mw: 1388000.0
+    wind_om_per_kw: 31
+  Moderate:
+    battery_om_per_kw: 32.525
+    pv_om_per_kw: 13.4328
+    solar_installed_cost_mw: 779104.4776
+    storage_installed_cost_mw: 317000.0
+    storage_installed_cost_mwh: 246000.0
+    wind_installed_cost_mw: 1228000.0
+    wind_om_per_kw: 29
+atb_cost_cases_electrolyzer:
+  Conservative:
+    fixed_om: 12.8
+    var_om: 0.0013
+    electrolyzer_capex: 758
+    replacement_cost_percent: 0.15
+    cost_model: custom
+  Moderate:
+    fixed_om: 12.8
+    var_om: 0.0013
+    electrolyzer_capex: 540
+    replacement_cost_percent: 0.15
+    cost_model: custom
+  Advanced:
+    fixed_om: 12.8
+    var_om: 0.0013
+    electrolyzer_capex: 270
+    replacement_cost_percent: 0.15
+    cost_model: custom
+atb_cases_desc:
+- Conservative
+- Moderate
+- Advanced
+h2_system_types:
+  0:
+    h2_storage_type: none
+    plant_design_num: 0
+    requires_power: false
+    distance_to_storage_key: null
+    extra_desc: onsite
+  1:
+    h2_storage_type: pipe
+    plant_design_num: 0
+    requires_power: false
+    distance_to_storage_key: null
+    extra_desc: onsite
+  2:
+    h2_storage_type: salt_cavern
+    plant_design_num: 1
+    requires_power: true
+    distance_to_storage_key: distance_to_salt_cavern
+    extra_desc: geologic
+  3:
+    h2_storage_type: lined_rock_cavern
+    plant_design_num: 1
+    requires_power: true
+    distance_to_storage_key: distance_to_rock_cavern
+    extra_desc: geologic
+profast_config:
+  params:
+    commodity:
+      initial price: 100.0
+      name: Hydrogen
+      unit: kg
+      escalation: 0.0
+    capacity: 1
+    long term utilization: 1
+    analysis start year: 2032
+    operating life: 30
+    installation months: 36
+    demand rampup: 0
+    capital gains tax rate: 0.15
+    total income tax rate: 0.2574
+    leverage after tax nominal discount rate: 0.0948
+    debt equity ratio of initial financing: 1.72
+    debt interest rate: 0.046
+    debt type: Revolving debt
+    property tax and insurance: 0.015
+    general inflation rate: 0.0
+    cash onhand: 1
+    TOPC:
+      unit price: 0.0
+      decay: 0.0
+      support utilization: 0.0
+      sunset years: 0
+    annual operating incentive:
+      value: 0.0
+      decay: 0.0
+      sunset years: 0
+      taxable: true
+    incidental revenue:
+      value: 0.0
+      escalation: 0.0
+    credit card fees: 0.0
+    sales tax: 0.0
+    road tax:
+      value: 0.0
+      escalation: 0.0
+    labor:
+      value: 0.0
+      rate: 0.0
+      escalation: 0.0
+    maintenance:
+      value: 0.0
+      escalation: 0.0
+    rent:
+      value: 0.0
+      escalation: 0.0
+    license and permit:
+      value: 0.0
+      escalation: 0.0
+    non depr assets: 250000
+    end of proj sale non depr assets: 250000
+    installation cost:
+      value: 0.0
+      depr type: Straight line
+      depr period: 4
+      depreciable: false
+    one time cap inct:
+      value: 0.0
+      depr type: MACRS
+      depr period: 3
+      depreciable: false
+    admin expense: 0.0
+    tax loss carry forward years: 0
+    tax losses monetized: true
+    sell undepreciated cap: true
+    loan period if used: 0
+baseline_atb_case: Moderate
+baseline_incentive_opt: 1
+baseline_h2_storage_type: pipe
+re_plant_types:
+  wind: 1.0
+  wind-battery: 1.0
+  wind-pv: 0.5
+  wind-pv-battery: 0.5
+  pv: 1.0
+  pv-battery: 1.0
+re_plant_capacity_multiplier: 1.0
+optimize_design: false
+electrolyzer_size_mw: 720
+resource_year: 2013
+site_resolution_km: 11.5
+run_battery_for_ancillary_power: false
+ancillary_power_solver_method: simple_solver
+dc_ac_ratio: 1.34
+turbine_size_mw: 6
+rotor_diameter: 170.0
+hub_height: 115.0
+row_spacing_D: 5
+turbine_spacing_D: 5
+battery_size_mw: 100.0
+battery_size_mwh: 400.0
+wind_technologies_config_default:
+  turbine_rating_kw: 6000.0
+  rotor_diameter: 170
+  model_name: floris
+  timestep:
+  - 0
+  - 8760
+  floris_config: input/library/wind/floris_generic_input.yaml
+  fin_model:
+    battery_system:
+      batt_replacement_schedule_percent:
+      - 0
+      batt_bank_replacement:
+      - 0
+      batt_replacement_option: 0
+      batt_computed_bank_capacity: 0
+      batt_meter_position: 0
+    system_costs:
+      om_fixed:
+      - 0
+      om_production:
+      - 0
+      om_capacity:
+      - 0
+      om_batt_fixed_cost: 0
+      om_batt_variable_cost:
+      - 0
+      om_batt_capacity_cost: 0
+      om_batt_replacement_cost: 0
+      om_replacement_cost_escal: 0
+    system_use_lifetime_output: 0
+    financial_parameters:
+      inflation_rate: 2.5
+      real_discount_rate: 6.4
+    cp_capacity_credit_percent:
+    - 0
+    degradation:
+    - 0
+    revenue:
+      ppa_price_input:
+      - 0.01
+      ppa_escalation: 1
+  operational_losses: 12.83
+pv_technologies_config_default:
+  dc_degradation:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  fin_model:
+    battery_system:
+      batt_replacement_schedule_percent:
+      - 0
+      batt_bank_replacement:
+      - 0
+      batt_replacement_option: 0
+      batt_computed_bank_capacity: 0
+      batt_meter_position: 0
+    system_costs:
+      om_fixed:
+      - 0
+      om_production:
+      - 0
+      om_capacity:
+      - 0
+      om_batt_fixed_cost: 0
+      om_batt_variable_cost:
+      - 0
+      om_batt_capacity_cost: 0
+      om_batt_replacement_cost: 0
+      om_replacement_cost_escal: 0
+    system_use_lifetime_output: 0
+    financial_parameters:
+      inflation_rate: 2.5
+      real_discount_rate: 6.4
+    cp_capacity_credit_percent:
+    - 0
+    degradation:
+    - 0
+    revenue:
+      ppa_price_input:
+      - 0.01
+      ppa_escalation: 1
+  panel_system_design:
+    SystemDesign:
+      array_type: 2.0
+      azimuth: 180.0
+      batt_simple_enable: 0.0
+      bifaciality: 0.0
+      dc_ac_ratio: 1.34
+      en_snowloss: 0.0
+      gcr: 0.3
+      inv_eff: 96.0
+      losses: 14.0757
+      module_type: 1.0
+      rotlim: 45.0
+      soiling:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+      - 0.0
+  panel_tilt_angle: lat-func
+  dc_ac_ratio: 1.34
+  losses: 14.0757
+  inv_eff: 96
+battery_technologies_config_default:
+  system_capacity_kwh: 400000
+  system_capacity_kw: 100000
+  minimum_SOC: 20.0
+  maximum_SOC: 100.0
+  initial_SOC: 20.0
+  fin_model:
+    battery_system:
+      batt_replacement_schedule_percent:
+      - 0
+      batt_bank_replacement:
+      - 0
+      batt_replacement_option: 0
+      batt_computed_bank_capacity: 0
+      batt_meter_position: 0
+    system_costs:
+      om_fixed:
+      - 0
+      om_production:
+      - 0
+      om_capacity:
+      - 0
+      om_batt_fixed_cost: 0
+      om_batt_variable_cost:
+      - 0
+      om_batt_capacity_cost: 0
+      om_batt_replacement_cost: 0
+      om_replacement_cost_escal: 0
+    system_use_lifetime_output: 0
+    financial_parameters:
+      inflation_rate: 2.5
+      real_discount_rate: 6.4
+    cp_capacity_credit_percent:
+    - 0
+    degradation:
+    - 0
+    revenue:
+      ppa_price_input:
+      - 0.01
+      ppa_escalation: 1
