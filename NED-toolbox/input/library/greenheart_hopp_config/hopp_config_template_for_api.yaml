@@ -1,0 +1,270 @@
+site:
+  data:
+    lat: 45.0
+    lon: -93.0
+    year: 2013
+    site_boundaries:
+      verts:
+      - - 0.0
+        - 0.0
+      - - 0.0
+        - 20000.0
+      - - 20000.0
+        - 20000.0
+      - - 20000.0
+        - 0.0
+      verts_simple:
+      - - 0.0
+        - 0.0
+      - - 0.0
+        - 20000.0
+      - - 20000.0
+        - 20000.0
+      - - 20000.0
+        - 0.0
+  solar_resource_file: ''
+  wind_resource_file: ''
+  wave_resource_file: ''
+  grid_resource_file: ''
+  hub_height: 115.0
+  capacity_hours: []
+  desired_schedule: []
+  curtailment_value_type: grid
+  solar: true
+  wind: true
+  wave: false
+  wind_resource_origin: WTK
+  renewable_resource_origin: HPC
+  path_resource: C:\Users\jmartin4\Documents\Code\IEDO Iron\jonathan's sandbox\iedo_sandbox\NED-toolbox\resource_files
+technologies:
+  wind:
+    num_turbines: 60
+    turbine_rating_kw: 6000.0
+    rotor_diameter: 170
+    model_name: floris
+    timestep:
+    - 0
+    - 8760
+    floris_config: input/library/wind/floris_generic_input.yaml
+    fin_model:
+      battery_system:
+        batt_replacement_schedule_percent:
+        - 0
+        batt_bank_replacement:
+        - 0
+        batt_replacement_option: 0
+        batt_computed_bank_capacity: 0
+        batt_meter_position: 0
+      system_costs:
+        om_fixed:
+        - 0
+        om_production:
+        - 0
+        om_capacity:
+        - 0
+        om_batt_fixed_cost: 0
+        om_batt_variable_cost:
+        - 0
+        om_batt_capacity_cost: 0
+        om_batt_replacement_cost: 0
+        om_replacement_cost_escal: 0
+      system_use_lifetime_output: 0
+      financial_parameters:
+        inflation_rate: 2.5
+        real_discount_rate: 6.4
+      cp_capacity_credit_percent:
+      - 0
+      degradation:
+      - 0
+      revenue:
+        ppa_price_input:
+        - 0.01
+        ppa_escalation: 1
+    operational_losses: 12.83
+  pv:
+    system_capacity_kw: 482400
+    dc_degradation:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    fin_model:
+      battery_system:
+        batt_replacement_schedule_percent:
+        - 0
+        batt_bank_replacement:
+        - 0
+        batt_replacement_option: 0
+        batt_computed_bank_capacity: 0
+        batt_meter_position: 0
+      system_costs:
+        om_fixed:
+        - 0
+        om_production:
+        - 0
+        om_capacity:
+        - 0
+        om_batt_fixed_cost: 0
+        om_batt_variable_cost:
+        - 0
+        om_batt_capacity_cost: 0
+        om_batt_replacement_cost: 0
+        om_replacement_cost_escal: 0
+      system_use_lifetime_output: 0
+      financial_parameters:
+        inflation_rate: 2.5
+        real_discount_rate: 6.4
+      cp_capacity_credit_percent:
+      - 0
+      degradation:
+      - 0
+      revenue:
+        ppa_price_input:
+        - 0.01
+        ppa_escalation: 1
+    panel_system_design:
+      SystemDesign:
+        array_type: 2.0
+        azimuth: 180.0
+        batt_simple_enable: 0.0
+        bifaciality: 0.0
+        dc_ac_ratio: 1.34
+        en_snowloss: 0.0
+        gcr: 0.3
+        inv_eff: 96.0
+        losses: 14.0757
+        module_type: 1.0
+        rotlim: 45.0
+        soiling:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+        - 0.0
+    panel_tilt_angle: lat-func
+    dc_ac_ratio: 1.34
+    losses: 14.0757
+    inv_eff: 96
+  battery:
+    system_capacity_kwh: 400000
+    system_capacity_kw: 100000
+    minimum_SOC: 20.0
+    maximum_SOC: 100.0
+    initial_SOC: 20.0
+    fin_model:
+      battery_system:
+        batt_replacement_schedule_percent:
+        - 0
+        batt_bank_replacement:
+        - 0
+        batt_replacement_option: 0
+        batt_computed_bank_capacity: 0
+        batt_meter_position: 0
+      system_costs:
+        om_fixed:
+        - 0
+        om_production:
+        - 0
+        om_capacity:
+        - 0
+        om_batt_fixed_cost: 0
+        om_batt_variable_cost:
+        - 0
+        om_batt_capacity_cost: 0
+        om_batt_replacement_cost: 0
+        om_replacement_cost_escal: 0
+      system_use_lifetime_output: 0
+      financial_parameters:
+        inflation_rate: 2.5
+        real_discount_rate: 6.4
+      cp_capacity_credit_percent:
+      - 0
+      degradation:
+      - 0
+      revenue:
+        ppa_price_input:
+        - 0.01
+        ppa_escalation: 1
+  grid:
+    interconnect_kw: 720000
+    fin_model:
+      battery_system:
+        batt_replacement_schedule_percent:
+        - 0
+        batt_bank_replacement:
+        - 0
+        batt_replacement_option: 0
+        batt_computed_bank_capacity: 0
+        batt_meter_position: 0
+      system_costs:
+        om_fixed:
+        - 0
+        om_production:
+        - 0
+        om_capacity:
+        - 0
+        om_batt_fixed_cost: 0
+        om_batt_variable_cost:
+        - 0
+        om_batt_capacity_cost: 0
+        om_batt_replacement_cost: 0
+        om_replacement_cost_escal: 0
+      system_use_lifetime_output: 0
+      financial_parameters:
+        inflation_rate: 2.5
+        real_discount_rate: 6.4
+      cp_capacity_credit_percent:
+      - 0
+      degradation:
+      - 0
+      revenue:
+        ppa_price_input:
+        - 0.01
+        ppa_escalation: 1
+config:
+  simulation_options:
+    wind:
+      skip_financial: false
+  dispatch_options:
+    battery_dispatch: load_following_heuristic
+    solver: cbc
+    n_look_ahead_periods: 48
+    grid_charging: false
+    pv_charging_only: false
+    include_lifecycle_count: false
+  cost_info:
+    wind_installed_cost_mw: 1228000
+    solar_installed_cost_mw: 779104
+    storage_installed_cost_mwh: 246000
+    storage_installed_cost_mw: 317000
+    wind_om_per_kw: 29.0
+    pv_om_per_kw: 13.43
+    battery_om_per_kw: 33

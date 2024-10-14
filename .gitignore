@@ -167,4 +167,4 @@ cython_debug/
 # Logs and output files
 *log/
 *output/
-*/speed_dir_data.csv
+*speed_dir_data.csv
