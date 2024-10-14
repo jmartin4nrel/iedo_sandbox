@@ -8,6 +8,10 @@ How to run:
 
 2. Test by running the example script run_example_plant.py
 
+3. Test out different model inputs by changing values in example_plant/input/plant/greenheart_config.yaml,
+    specifically iron: technology and iron: ore_cost and re-running run_example_plant.py
+    (These are just loading junk values for now, to test out the new iron.py technology module in GreenHEART)
+
 To run NED-toolbox:
 
 1. Switch to the "feature/ned" branch of HOPP/GreenHEART (no Jonathan Martin's fork still)

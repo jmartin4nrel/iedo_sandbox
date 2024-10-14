@@ -12,7 +12,7 @@ project_parameters:
   ppa_price: 0.025 # $/kWh based on 2022 land based wind market report (ERCOT area ppa prices) https://www.energy.gov/sites/default/files/2022-08/land_based_wind_market_report_2202.pdf
   hybrid_electricity_estimated_cf: 0.492 #should equal 1 if grid_connection = True
   atb_year: 2030
-  cost_year: 2020 # to match ATB
+  cost_year: 2021 # to match ATB
   installation_time: 36 # months
 finance_parameters:
   costing_general_inflation: 0.025 # used to adjust modeled costs to cost_year
@@ -210,7 +210,9 @@ plant_design:
     pv_location: "platform" # can be one of ["none", "onshore", "platform"]
     battery_location: "platform" # can be one of ["none", "onshore", "platform"]
 
-steel:
+iron:
+  technology: 'MOE' # 'Blast Furnace', 'H2 DRI', 'Gas DRI', 'MOE', 'AHE', 'MSE'
+  ore_type: 'More Expensive Ore' # 'Hibbing Taconite', 'More Expensive Ore'
   capacity:
     input_capacity_factor_estimate: 0.9
   costs:
@@ -360,9 +362,9 @@ opt_options:
       flag: False 
       upper: 1.0 # relative size of solar pv area to platform area
     user: {}
-  merit_figure: "lcos"
+  merit_figure: "lcoi"
   merit_figure_user:
-    name: "lcos"
+    name: "lcoi"
     max_flag: False
     ref: 1.0 # value of objective that scales to 1.0
   driver:

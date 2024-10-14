@@ -17,9 +17,11 @@ from greenheart.tools.optimization.gc_run_greenheart import run_greenheart as ru
 from greenheart.tools.optimization.fileIO import save_data, load_data
 import openmdao.api as om
 
+from utilities.load_library_inputs import load_ore_cost, load_tech_capex
+
 '''
-Simulates an example steel plant in GreenHEART - copied from 01-onshore-steel-mn in dev/refactor
-Only thing I changed besides name was write this preamble to replace the comment "run the stuff"
+Simulates an example iron plant in GreenHEART - copied from 01-onshore-steel-mn in dev/refactor and
+altered to fit the IEDO Iron Electrowinning project
 '''
 
 if __name__ == "__main__":
@@ -44,6 +46,10 @@ if __name__ == "__main__":
     filename_hopp_config =  input_filepath+"plant/hopp_config_mn.yaml"
     filename_greenheart_config =  input_filepath+"plant/greenheart_config_onshore_mn.yaml"
 
+    # Set cost filepaths
+    ore_cost_filepath = input_filepath + "cost_library/ore_cost.csv"
+    tech_capex_filepath = input_filepath  + "cost_library/tech_capex.csv"
+
     # Set up GreenHEART configuration
     if run_new:
         config = GreenHeartSimulationConfig(
@@ -60,6 +66,10 @@ if __name__ == "__main__":
             plant_design_scenario=9,
             output_level=7,
         )
+
+        # Load ore- and tech- specific costs
+        config = load_ore_cost(config,ore_cost_filepath)
+        config = load_tech_capex(config,tech_capex_filepath)
 
     # Run/load GreenHEART simulation
     if run_om:
@@ -79,22 +89,22 @@ if __name__ == "__main__":
     
         lcoe = prob.get_val("lcoe", units="USD/(MW*h)")
         lcoh = prob.get_val("lcoh", units="USD/kg")
-        lcos = prob.get_val("lcos", units="USD/t")
+        lcoi = prob.get_val("lcoi", units="USD/t")
 
     else:
         
         # Run not using OpenMDAO
         if run_new:
-            lcoe, lcoh, steel_finance, ammonia_finance = run_greenheart(config)
-            lcos = steel_finance.sol['price']
+            lcoe, lcoh, iron_finance, ammonia_finance = run_greenheart(config)
+            lcoi = iron_finance.sol['price']
             
-            # Save GreenHEART data (lcoe, lcoh, and SteelCostModelOutputs)
+            # Save GreenHEART data (lcoe, lcoh, and IronCostModelOutputs)
             output = open(output_filepath+filename+"_lcoe.txt", 'w')
             output.write(str(lcoe))
             output = open(output_filepath+filename+"_lcoh.txt", 'w')
             output.write(str(lcoh))
             output = open(output_filepath+filename+"_sf.pkl", 'wb')
-            pickle.dump(steel_finance, output)
+            pickle.dump(iron_finance, output)
 
         # Load from saved files
         else:
@@ -103,10 +113,10 @@ if __name__ == "__main__":
             input = open(output_filepath+filename+"_lcoh.txt")
             lcoh = float(input.read())
             input = open(output_filepath+filename+"_sf.pkl", 'rb')
-            steel_finance = pickle.load(input)
-            lcos = steel_finance.sol['price']
+            iron_finance = pickle.load(input)
+            lcoi = iron_finance.sol['price']
 
 
     print("LCOE: ", lcoe, "[$/MWh]")
     print("LCOH: ", lcoh, "[$/kg]")
-    print("LCOS: ", lcos, "[$/metric-tonne]")
+    print("LCOI: ", lcoi, "[$/metric-tonne]")
