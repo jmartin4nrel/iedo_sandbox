@@ -40,11 +40,13 @@ if __name__ == "__main__":
     filepath = str(os.path.abspath(os.path.dirname(__file__)))
     input_filepath = filepath + "/input/"
     output_filepath = filepath + "/output/"
+    if not os.path.exists(output_filepath):
+        os.mkdir(output_filepath)
     turbine_model = "lbw_6MW"
     filename_turbine_config = input_filepath+"turbines/"+turbine_model+".yaml"
     filename_floris_config = input_filepath+"floris/floris_input_lbw_6MW.yaml"
-    filename_hopp_config =  input_filepath+"plant/hopp_config_mn.yaml"
-    filename_greenheart_config =  input_filepath+"plant/greenheart_config_onshore_mn.yaml"
+    filename_hopp_config =  input_filepath+"plant/hopp_config.yaml"
+    filename_greenheart_config =  input_filepath+"plant/greenheart_config.yaml"
 
     # Set cost filepaths
     ore_cost_filepath = input_filepath + "cost_library/ore_cost.csv"
@@ -103,7 +105,7 @@ if __name__ == "__main__":
             output.write(str(lcoe))
             output = open(output_filepath+filename+"_lcoh.txt", 'w')
             output.write(str(lcoh))
-            output = open(output_filepath+filename+"_sf.pkl", 'wb')
+            output = open(output_filepath+filename+"_if.pkl", 'wb')
             pickle.dump(iron_finance, output)
 
         # Load from saved files
@@ -112,7 +114,7 @@ if __name__ == "__main__":
             lcoe = float(input.read())
             input = open(output_filepath+filename+"_lcoh.txt")
             lcoh = float(input.read())
-            input = open(output_filepath+filename+"_sf.pkl", 'rb')
+            input = open(output_filepath+filename+"_if.pkl", 'rb')
             iron_finance = pickle.load(input)
             lcoi = iron_finance.sol['price']
 
